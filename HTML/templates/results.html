@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <header>
+        results of your search
+    </header>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script>
+        function display_results() {
+            //get data from the session storage                                            
+            var results = sessionStorage.getItem("results");
+            if (results !== "[]") {
+                alert("got to results");
+                //set the content to search results
+                document.getElementById("content").textContent = results;
+            }
+            else {
+                //set the content to search results
+                document.getElementById("content").textContent = "no results found";
+                //return it on screen 
+            }
+        }
+        document.addEventListener("DOMContentLoaded", display_results);
+    </script>
+</body>
+
+</html>
