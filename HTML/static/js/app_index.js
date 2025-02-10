@@ -13,6 +13,9 @@ const handleClick = function (event) {
     if (input === "amsterdam") {
       window.location.href = "search_hotels.html"; // Redirect to the new HTML file
     }
+    else {
+      window.location.href = "results1.html"; // Redirect to the new HTML file
+    }
   }
 };
 
