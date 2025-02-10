@@ -20,9 +20,6 @@ const handleClick = function (event) {
 };
 
 function search_query_results(query) {
-  alert("search_query_results");
-  console.log("the query is");
-  console.log(query);
   //fetch the database.txt
   fetch("/templates/database.txt")
     //turn file object into a plain text
@@ -35,16 +32,12 @@ function search_query_results(query) {
 
 function pass_to_search_query(query){
         return function(text_file) {
-            search_query(text_file, query); // ✅ Uses `query` from closure
+            search_query(text_file, query); //  Uses `query` from closure
         };
     }
 
 
 function search_query(text_file,query) {
-  alert("query search");
-  console.log ("query is ");
-  console.log (query);
-  alert("query search1");
   //splits plain text file into lines
   var lines = text_file.split("\n");
   //loops over the lines and checks for the wanted id(query)
@@ -64,13 +57,10 @@ function search_query(text_file,query) {
 }
 
 function object_into_text(response) {
-  alert("object_into_text");
-  console.log("🚨 Fetch failed: This function is running!");
   return response.text();
 }
 
 function handle_fetch_error(error) {
-  alert("handle_fetch_error");
   //log error into the console
   console.error("error fetching database file", error);
   //show error on screen
