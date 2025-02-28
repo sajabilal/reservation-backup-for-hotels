@@ -1,0 +1,73 @@
+﻿1- setting route 53: done annd waiting for aws support. 
+
+2- dummy website: 
+on ec2: installed httpd and started it and enaled it 
+installed python 
+installed flask (i have experience with it)
+
+created another ec2 with mssql port for the db
+installed mariadb , started it and enabled it 
+
+
+
+
+
+
+
+
+
+
+
+
+
+dummy website will have ready records in the database
+the only interaction between the system and the user is the query made by user to data base
+
+
+
+
+
+
+ACM verification ways:
+1. You Request a Certificate
+You start by saying, “Hey ACM, I want a superhero badge (SSL/TLS certificate) for my domain!”
+    • You log in to the AWS Management Console.
+    • Go to the Certificate Manager and click Request a Certificate.
+    • Enter your domain name (e.g., example.com).
+
+2. Choose Your Verification Method
+ACM needs to make sure you’re the real superhero for your domain. They offer two challenges:
+Option 1: DNS Verification (Preferred)
+This is like adding a magic phrase to your superhero book (DNS records):
+    • ACM gives you a special magic phrase (a CNAME record).
+    • You log in to your DNS manager (e.g., Route 53, GoDaddy, etc.).
+    • Add the CNAME record ACM provided to your domain’s DNS settings.
+Why DNS is Great:
+    • It’s fast and doesn’t need to be updated every time you renew the certificate.
+Option 2: Email Verification
+This is like answering the superhero hotline:
+    • ACM sends an email to certain official addresses for your domain (e.g., admin@example.com, webmaster@example.com).
+    • You click the link in the email to verify ownership.
+Why Email Is Okay:
+    • It works if you don’t have access to DNS, but you’ll need to verify every time the certificate is renewed.
+
+
+
+
+
+
+Pass: as aws mail
+
+
+
+javascript:
+
+error:
+
+Uncaught ReferenceError: Cannot access 'handleClick' before initialization at app_index.js:2:73
+
+used Document object before the functions, the components hasn’t been initialized yet yet
+
+refused to execute script from 'http://127.0.0.1:5500/templates/app_index.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled.
+
+The path to js file is incorrect

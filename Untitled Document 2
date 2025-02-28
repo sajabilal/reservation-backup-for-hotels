@@ -1,0 +1,45 @@
+﻿from flask import Flask, request, render_template
+import pymysql
+
+app = Flask(__name__) // initializes the Flask application. __name__ helps Flask determine the root path for the application, which it uses for resources and templates.
+
+def get_db_connection(): //connection with database (will be an external db)
+    return pymysql.connect(
+        host='localhost',
+        user='root',
+        password='your_db_password',
+        database='mydatabase'
+    )
+
+@app.route('/')//triggered when home page is accessed 
+def index():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM users')//needs to be changed to fetching from reservation table
+    users = cursor.fetchall()
+    conn.close()
+    return render_template('index.html', users=users)//needs to be modified
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=80)//update with ec2 ip
+
+
+		
+		
+
+	
+
+
+		
+
+
+
+
+
+
+
+	
+
+I needed to set another port for the application because:
+
+

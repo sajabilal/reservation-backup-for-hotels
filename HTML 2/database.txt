@@ -1,0 +1,3 @@
+id: 1345, name: John Doe, age: 25, hotel: Mont Garden Hotel, city: Amsterdam
+id: 2573, name: Jane Smith, age: 30, hotel: Holiday Inn, city: Amsterdam
+id: 3162, name: Alice Brown, age: 22, hotel: Hotel CC, city: Amsterdam

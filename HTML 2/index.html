@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+        img{
+            width: 100vw; /* Full width of the viewport */
+            height: 100vh; /* Full height of the viewport */
+            position: fixed;
+            z-index: -1;
+            background-size: cover; /* Scale image to cover entire area */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent image tiling */
+        }
+        p,div{
+            position: relative; z-index: 0;
+            margin-left: 60vw; /* Horizontally centers the div */
+            
+        }
+
+        p.title{
+            font-size: 50px;
+            font-weight: bold;
+            color: darkblue;
+            position: absolute;
+            top: 15%;
+        }
+        p.section1{
+            font-size: 40px;
+            color: darkblue;
+            position: absolute;
+            top: 30%;
+        }
+        div.search_hotel_bar{
+            position: absolute;
+            top: 40%;
+        }
+        p.section2{
+            font-size: 40px;
+            color: darkblue;
+            position: absolute;
+            top: 50%;
+        }
+        div.search_reservation_bar{
+            position: absolute;
+            top: 60%;
+        }
+        input {
+            width: 300px; /* Adjust box width */
+            height: 40px; /* Adjust box height */
+            padding: 10px; /* Padding inside the input box */
+            font-size: 16px; /* Text size inside the input */
+        }
+    </style>
+    </head>
+    <body>
+        <img src="/hotelbell.jpg">
+        <p class="title"> Backup page for Reservation Company </p>
+        <p class="section1">search your Hotel</p>
+        <div class="search_hotel_bar">
+            <input type="text" ; id="search_for_hotel" ; placeholder="Destination">
+        </div>
+        <p class="section2">search your reservation</p>
+        <div class="search_reservation_bar">
+            <input type="text"; id="search_for_reservation" ; placeholder="Reservation ID" >
+        </div>
+        <script src = "app_index.js"></script>
+    </body>
+</html>
