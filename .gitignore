@@ -1,0 +1,14 @@
+# Ignore files
+lambda.py
+proposal.docx
+proposal reservation backups for hotels.pdf
+reservation back up diaries
+reservation back up diaries.odt
+ reservationssolution.pem
+ template_proposal.docx
+Untitled Document 2
+User Experience delete reservation.jpg
+user Experience New reservation.jpg
+
+#Ignore Directories
+myenv/

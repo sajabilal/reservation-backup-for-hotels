@@ -71,3 +71,55 @@ used Document object before the functions, the components hasn’t been initiali
 refused to execute script from 'http://127.0.0.1:5500/templates/app_index.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled.
 
 The path to js file is incorrect
+
+
+
+
+
+📌 The Headers we Added for CORS:
+We added these important response headers in API Gateway:
+    • Access-Control-Allow-Origin
+    • Access-Control-Allow-Methods
+    • Access-Control-Allow-Headers
+Let's break down each:
+
+🔹 1. Access-Control-Allow-Origin
+Meaning:
+    • Specifies which domains (origins) can access your API.
+    • Origin = domain + port (http://127.0.0.1:5500, https://example.com).
+What we used:
+http
+CopyEdit
+Access-Control-Allow-Origin: *
+    • * → allows any domain to access your API (good for testing, but in production specify a specific domain).
+Production example (recommended):
+http
+CopyEdit
+Access-Control-Allow-Origin: https://mywebsite.com
+Why we needed it:
+Without this, the browser assumes your API is private and blocks JavaScript calls from other origins (CORS error).
+
+🔹 2. Access-Control-Allow-Methods
+Meaning:
+    • Defines which HTTP methods (GET, POST, PUT, DELETE, OPTIONS) are allowed from the browser.
+What we used:
+http
+CopyEdit
+Access-Control-Allow-Methods: POST, OPTIONS
+    • POST → allowed the request that actually sends data to SNS.
+    • OPTIONS → required for "preflight checks" (browser automatically sends OPTIONS requests first).
+Why we needed it:
+The browser first checks (via OPTIONS) if your API allows the actual HTTP method (POST) before sending it.
+
+🔹 3. Access-Control-Allow-Headers
+Meaning:
+    • Defines which headers the browser is allowed to include in the actual request.
+What we used:
+http
+CopyEdit
+Access-Control-Allow-Headers: Content-Type
+    • Content-Type → allows the browser to send the "Content-Type" header (which describes the format of the request).
+Why we needed it:
+Our JavaScript used "Content-Type": "application/x-www-form-urlencoded" to send the data correctly. The browser needed permission to include this header.
+
+

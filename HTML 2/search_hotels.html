@@ -23,7 +23,7 @@
         }
 
         header {
-            background-image: url("/blue.png");
+            background-image: url("blue.png");
             font-size: 50px;
             font-weight: bold;
             color: whitesmoke;
@@ -53,22 +53,33 @@
             position: absolute;
             top: 800px;
         }
+        form {
+            margin-left: 400px;
+            position: absolute;
+            top: 250px;
+        }
     </style>
 </head>
 
 <body>
+    <form id="reservationForm" style="display: none;">
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+        <button>Confirm</button>
+    </form>
+
     <p class="title1"> Monet Garden Hotel </p>
-    <img class="hotel" src="/amsterdam1.jpg">
+    <img class="hotel" src="amsterdam1.jpg">
     <div class="monet">
         <button id="Monet Garden Hotel"> Reserve </button>
     </div>
     <p class="title2"> Holiday inn </p>
-    <img class="hotel" src="/amsterdam2.jpg">
+    <img class="hotel" src="amsterdam2.jpg">
     <div class="holiday">
         <button id="holiday"> Reserve </button>
     </div>
     <p class="title3"> Hotel CC </p>
-    <img class="hotel" src="/amsterdam3.jpg">
+    <img class="hotel" src="amsterdam3.jpg">
     <div class="cc">
         <button id="cc"> Reserve </button>
     </div>
