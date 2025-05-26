@@ -31,12 +31,16 @@
 
 <body>
     <div id="content" class="content"></div>
-    <div id="button content" class="button">
+    <div id="buttonContent" class="button">
         <button class="edit" ; id="edit"> Edit </button>
         <form id="editForm" style="display: none;">
-            <label for="date">Enter wanted date:</label>
-            <input type="date" id="date" name="date" required autocomplete="date">
-            <button id="confirm">Confirm</button>
+            <label for="arrivalDate">Enter arriving date:</label>
+            <input type="date" id="arrivalDate" name="arrivalDate" required autocomplete="date">
+            <label for="leavingDate">Enter leaving date:</label>
+            <input type="date" id="leavingDate" name="leavingDate" required autocomplete="date">
+            <label for="roomType">Enter wanted room type:</label>
+            <input type="text" id="roomType" name="roomType" required autocomplete="roomType">
+            <button type="button" id="confirm">Confirm</button>
         </form>
         <button class="delete" ; id="delete"> Delete </button>
     </div>
@@ -83,12 +87,18 @@
 
         async function confirm(event){
             const {hotelEmail,customerEmail,hotelName} = getData();
-            event.preventDefault();
-            date = document.getElementById("date").value; 
-            if (!date){
-                console.error("date is invalid",error);
+            arrivingDate = document.getElementById("arrivalDate").value; 
+            if (!arrivingDate){
+                console.error("arriving date is invalid");
                 return;
             }
+            leavingDate = document.getElementById("leavingDate").value; 
+            if (!leavingDate){
+                console.error("leaving date is invalid");
+                return;
+            }
+            roomType = document.getElementById("roomType").value;
+
             try{
                 // fetch api link
                 response = await fetch(`https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/send-edit-to-hotel`,
@@ -100,7 +110,7 @@
                     body: JSON.stringify({
                     "toEmails": [hotelEmail.trim()],
                     "subject" : "edit request",
-                    "message" : `customer with email ${customerEmail} would like to change the reservation to ${date}, please decline: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/decline-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)} or ACCEPT: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/accept-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)}`
+                    "message" : `customer with email ${customerEmail} would like to change the reservation to arriving date:${arrivalDate} and leaving date: ${leavingDate} room type ${roomType}, \n please decline: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/decline-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)} \n or ACCEPT: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/accept-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)}&arrivaldate=${arrivingDate}&leavingDate=${leavingDate}&roomtype=${roomType}`
                     })
                 }
             );

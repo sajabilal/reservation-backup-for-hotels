@@ -12,49 +12,69 @@ const handleClick = function (event) {
     //return it on screen
     if (input === "amsterdam") {
       window.location.href = "search_hotels.html"; // Redirect to the new HTML file
-    }
-    else {
+    } else {
       window.location.href = "results1.html"; // Redirect to the new HTML file
     }
   }
 };
 
-function search_query_results(query) {
-  //fetch the database.txt
-  fetch("database.txt")
-    //turn file object into a plain text
-    .then(object_into_text)
-    //query the plain text and return results
-    .then(pass_to_search_query(query))
-    //handle fetch error
-    .catch(handle_fetch_error);
-}
+async function search_query_results(query) {
+  // //fetch the database.txt
+  // fetch("database.txt")
+  //   //turn file object into a plain text
+  //   .then(object_into_text)
+  //   //query the plain text and return results
+  //   .then(pass_to_search_query(query))
+  //   //handle fetch error
+  //   .catch(handle_fetch_error);
+  //console.log("i am here");
 
-function pass_to_search_query(query){
-        return function(text_file) {
-            search_query(text_file, query); //  Uses `query` from closure
-        };
-    }
+  try {
+    response = await fetch(`https://z3w24l5te9.execute-api.us-east-1.amazonaws.com/prod/search-opensearch`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Tell API Gateway that we are sending form data
+        body: JSON.stringify(query), //the query is the id
+      },
+    });
+    console.log("the response is:",response)
+  } catch (error) {
+    // If something goes wrong, log the error in the console
+    console.error("Error finding reservation", error);
 
-
-function search_query(text_file,query) {
-  //splits plain text file into lines
-  var lines = text_file.split("\n");
-  //loops over the lines and checks for the wanted id(query)
-  var id;
-  var result = [];
-  for (i = 0; i < lines.length; i++) {
-    var line = lines[i]; //on each itiration line variable gets a whole line
-    if (line.startsWith("id: " + query)) {
-      //check if the line has the wanted id
-      result.push(line);
-    }
+    // Show an alert to tell the user that sending the email failed
+    alert("no reservation with this number");
   }
   //saving search results in "STRING" form in the tab session
-  sessionStorage.setItem("results", JSON.stringify(result));
-  //return it on screen 
-  window.location.href = 'results.html';
+  //sessionStorage.setItem("results", JSON.stringify(response));
+  //return it on screen
+ // window.location.href = 'results.html';
 }
+
+// function pass_to_search_query(query){
+//         return function(text_file) {
+//             search_query(text_file, query); //  Uses `query` from closure
+//         };
+//     }
+
+// function search_query(text_file,query) {
+//   //splits plain text file into lines
+//   var lines = text_file.split("\n");
+//   //loops over the lines and checks for the wanted id(query)
+//   var id;
+//   var result = [];
+//   for (i = 0; i < lines.length; i++) {
+//     var line = lines[i]; //on each itiration line variable gets a whole line
+//     if (line.startsWith("id: " + query)) {
+//       //check if the line has the wanted id
+//       result.push(line);
+//     }
+//   }
+//   //saving search results in "STRING" form in the tab session
+//   sessionStorage.setItem("results", JSON.stringify(result));
+//   //return it on screen
+//   window.location.href = 'results.html';
+// }
 
 function object_into_text(response) {
   return response.text();
@@ -77,6 +97,8 @@ const handle = function (event) {
       alert("Please insert a convinient booking number");
       return;
     }
+    console.log("i am here");
+    
     //search it in the database
     search_query_results(input);
   }

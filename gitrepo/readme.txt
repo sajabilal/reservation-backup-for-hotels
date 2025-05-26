@@ -39,4 +39,13 @@ Edit
 Improve real-time data sync to minimize replication lag.
 Implement multi-region redundancy for higher availability.
 
+SMTP credentials
+IAM user name
 
+ses-smtp-user
+SMTP user name
+
+AKIAW6DH3H3LSSALBYC2
+SMTP password
+
+BNRM9jZ5ohtKNAy1xAtxLE7F1Q2aI+a58w2o1icDB/Cp

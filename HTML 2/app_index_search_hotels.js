@@ -3,6 +3,10 @@ async function confirm(event) {
   console.log(hotelName);
   event.preventDefault();
   customerEmail = document.getElementById("email").value;//user email
+  arrivingDate = document.getElementById("arrivingDate").value;
+  leavingDate = document.getElementById("leavingDate").value;
+  roomtype = document.getElementById("room type").value;
+
   if (hotelName === "Monet Garden Hotel"){
     hotelEmail = "monetgardenhotelresevation@gmail.com";
   }
@@ -24,7 +28,7 @@ async function confirm(event) {
         body: JSON.stringify({
           "toEmails": [hotelEmail.trim()],
           "subject" : "reservation request",
-          "message" : `to DECLINE: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/decline-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)} to ACCEPT: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/accept-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)}`
+          "message" : `request for reservation for a ${roomtype} room on arrival date: ${arrivingDate} and leaving on: ${leavingDate}\n to DECLINE: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/decline-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)} \nto ACCEPT: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/accept-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)}&roomtype=${roomtype}&arrivalDate=${arrivingDate}&leavingDate=${leavingDate}`
         })
       }
     );
@@ -47,6 +51,20 @@ function reserve(event) {
   document.getElementById("Monet Garden Hotel").style.display = "none";
   return hotelName; 
 }
+function reserve2(event) {
+  hotelName = event.target.id;
+  console.log(hotelName);
+  document.getElementById("reservationForm2").style.display = "block";
+  document.getElementById("holiday").style.display = "none";
+  return hotelName; 
+}
+function reserve3(event) {
+  hotelName = event.target.id;
+  console.log(hotelName);
+  document.getElementById("reservationForm3").style.display = "block";
+  document.getElementById("cc").style.display = "none";
+  return hotelName; 
+}
 
 document
   .getElementById("Monet Garden Hotel")
@@ -54,10 +72,12 @@ document
 
 document
 .getElementById("cc")
-.addEventListener("click", reserve); //accessing the hotel search bar and adding a listener to the enter pressed
+.addEventListener("click", reserve3); //accessing the hotel search bar and adding a listener to the enter pressed
 
 document
   .getElementById("holiday")
-  .addEventListener("click", reserve); //accessing the hotel search bar and adding a listener to the enter pressed
+  .addEventListener("click", reserve2); //accessing the hotel search bar and adding a listener to the enter pressed
 
 document.getElementById("reservationForm").addEventListener("submit", confirm);
+document.getElementById("reservationForm2").addEventListener("submit", confirm);
+document.getElementById("reservationForm3").addEventListener("submit", confirm);
