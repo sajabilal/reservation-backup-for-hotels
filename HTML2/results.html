@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <header>
+        results of your search
+    </header>
+    <style>
+
+    </style>
+</head>
+
+</html>
+
+<style>
+    header {
+        margin-left: 40vw;
+        margin-top: 5vw;
+    }
+
+    div.content {
+        margin-left: 20vw;
+        margin-top: 10vw;
+    }
+
+    div.button {
+        margin-left: 20vw;
+        margin-top: 10vw;
+    }
+</style>
+
+<body>
+    <div id="content" class="content"></div>
+    <div id="buttonContent" class="button">
+        <button class="edit" ; id="edit"> Edit </button>
+        <form id="editForm" style="display: none;">
+            <label for="arrivalDate">Enter arriving date:</label>
+            <input type="date" id="arrivalDate" name="arrivalDate" required autocomplete="date">
+            <label for="leavingDate">Enter leaving date:</label>
+            <input type="date" id="leavingDate" name="leavingDate" required autocomplete="date">
+            <label for="roomType">Enter wanted room type:</label>
+            <input type="text" id="roomType" name="roomType" required autocomplete="roomType">
+            <label for="reservationId">Enter reservation Id:</label>
+            <input type="text" id="id" name="reservationID" required autocomplete="reservationID">
+            <button type="button" id="confirm">Confirm</button>
+        </form>
+        <button class="delete" ; id="delete"> Delete </button>
+        <form id="cancelForm" style="display: none;">
+            <label for="reservationID">reservation id confermation</label>
+            <input type="text" id="reservationID" name="reservationID" required autocomplete="reservationID">
+        </form>
+    </div>
+    <script>
+        function display_results() {
+            //get data from the session storage                                            
+            var results = sessionStorage.getItem("results");
+            if (results !== "[]") {
+                //set the content to search results
+                document.getElementById("content").textContent = results;
+            }
+            else {
+                //set the content to search results
+                document.getElementById("content").textContent = "no results found";
+                //return it on screen 
+            }
+        }
+        function getData() {//from data base
+            reservationData = document.getElementById("content").textContent;
+            console.log(reservationData);
+            parcedData = JSON.parse(reservationData);
+            console.log(parcedData);
+            console.log(typeof parcedData);
+            const dataArray = Object.values(parcedData);
+            customerEmail = dataArray[0];
+            console.log("email is:", customerEmail);
+            hotelName = dataArray[1];
+            console.log("hotel name is", hotelName);
+            roomType = dataArray[2];
+            console.log("room type is:", roomType);
+            arrivalDate = dataArray[3];
+            console.log("arrival date is: ", arrivalDate);
+            leavingDate = dataArray[4];
+            console.log("leaving date is:", leavingDate);
+            id = dataArray[5];
+            console.log("reservation id is:", id);
+            return { customerEmail, hotelName, id };
+        }
+
+        function edit() {
+            document.getElementById("editForm").style.display = "block";
+            document.getElementById("edit").style.display = "none";
+            document.getElementById("delete").style.display = "none";
+        }
+
+        async function confirm(event) {
+            const { customerEmail, hotelName, id } = getData();
+            arrivingDate = document.getElementById("arrivalDate").value;
+            if (!arrivingDate) {
+                console.error("arriving date is invalid");
+                return;
+            }
+            leavingDate = document.getElementById("leavingDate").value;
+            if (!leavingDate) {
+                console.error("leaving date is invalid");
+                return;
+            }
+            roomType = document.getElementById("roomType").value;
+            //id = document.getElementById("id").value;
+            hotelEmail = "monetgardenhotelresevation@gmail.com"//a search in database for hotelname should take place but since i am working on a sandbox ses one email is used
+            try {
+                // fetch api link
+                response = await fetch(`https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/send-edit-to-hotel`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json", // Tell API Gateway that we are sending form data
+                        },
+                        body: JSON.stringify({
+                            "toEmails": [hotelEmail.trim()],
+                            "subject": "edit request",
+                            "message": `customer with email ${customerEmail} would like to change the reservation to arriving date:${arrivalDate} and leaving date: ${leavingDate} room type ${roomType}, \n please decline: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/decline-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)}&id=${id} \n or ACCEPT: https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/accept-to-customer?email=${customerEmail}&hotel=${encodeURIComponent(hotelName)}&arrivaldate=${arrivingDate}&leavingDate=${leavingDate}&roomtype=${roomType}&id=${id}`
+                        })
+                    }
+                );
+                data = await response.text();
+                console.log("response is:", data);
+                alert("email has been sent");
+            }
+            catch (error) {
+                console.error("an error occured:", error);
+                alert("an error occured")
+            }
+
+        }
+
+        async function cancel() {
+            //delete database 
+            //send ses to hotel 
+            const { customerEmail, hotelName, id } = getData();
+            hotelEmail = "monetgardenhotelresevation@gmail.com"//a search in database for hotelname should take place but since i am working on a sandbox ses one email is used
+            try {
+                response = await fetch(
+                    `https://lhoeea8hkl.execute-api.us-east-1.amazonaws.com/prod/cancel-to-hotel`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json", // Tell API Gateway that we are sending form data
+                        },
+                        body: JSON.stringify({
+                            "toEmails": [hotelEmail.trim()],
+                            "subject": "cancelation decision",
+                            "message": `customer with email ${customerEmail} would like to delete reservation number ${id}`,
+                            "id" : id
+                        })
+                    }
+                );
+                data = await response.text();
+                console.log("Server Response:", data);
+                if (!response.ok) {
+                    throw new Error(`Server returned status ${response.status}`);
+                }
+
+                alert("Email Sent Successfully! Check your inbox.");
+            } catch (error) {
+                // If something goes wrong, log the error in the console
+                console.error("Error sending email:", error);
+
+                // Show an alert to tell the user that sending the email failed
+                alert("Failed to send email. Please check the console for details.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", display_results);
+        document.getElementById("edit").addEventListener("click", edit);
+        document.getElementById("delete").addEventListener("click", cancel);
+        document.getElementById("confirm").addEventListener("click", confirm);
+    </script>
+
+
+
+</body>
+
+</html>

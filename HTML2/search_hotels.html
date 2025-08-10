@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <header>
+        hotels in Amsterdam
+    </header>
+    <style>
+        p,
+        img.hotel {
+            margin-left: 200px;
+            margin-bottom: 20px;
+        }
+
+        img.hotel {
+            width: 16vw;
+            height: 20vh;
+        }
+
+        p {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        header {
+            background-image: url("blue.png");
+            font-size: 50px;
+            font-weight: bold;
+            color: whitesmoke;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            width: 8vw;
+            height: 5vh;
+            font-weight: bold;
+        }
+
+        div.holiday {
+            margin-left: 800px;
+            position: absolute;
+            top: 550px;
+        }
+
+        div.monet {
+            margin-left: 800px;
+            position: absolute;
+            top: 250px;
+        }
+
+        div.cc {
+            margin-left: 800px;
+            position: absolute;
+            top: 850px;
+        }
+        #reservationForm {
+            margin-left: 600px;
+            position: absolute;
+            top: 250px;
+        }
+        #reservationForm2 {
+            margin-left: 600px;
+            position: absolute;
+            top: 550px;
+        }
+        #reservationForm3 {
+            margin-left: 600px;
+            position: absolute;
+            top: 850px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="reservationForm" style="display: none;">
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+        <label for="roomtype">Enter room type:</label>
+        <input type="roomtype" id="roomtype" name="roomtype" required autocomplete="roomtype">
+        <label for="arrivingDate">Enter arriving Date:</label>
+        <input type="date" id="arrivingDate" name="arrivingDate" required autocomplete="arrivingDate">
+        <label for="leavingDate">Enter leaving Date:</label>
+        <input type="date" id="leavingDate" name="leavingDate" required autocomplete="leavingDate">
+        <button>Confirm</button>
+    </form>
+
+    <form id="reservationForm2" style="display: none;">
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+        <label for="roomtype">Enter room type:</label>
+        <input type="roomtype" id="roomtype" name="roomtype" required autocomplete="roomtype">
+        <label for="arrivingDate">Enter arriving Date:</label>
+        <input type="date" id="arrivingDate" name="arrivingDate" required autocomplete="arrivingDate">
+        <label for="leavingDate">Enter leaving Date:</label>
+        <input type="date" id="leavingDate" name="leavingDate" required autocomplete="leavingDate">
+        <button>Confirm</button>
+    </form>
+
+    <form id="reservationForm3" style="display: none;">
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+        <label for="roomtype">Enter room type:</label>
+        <input type="roomtype" id="roomtype" name="roomtype" required autocomplete="roomtype">
+        <label for="arrivingDate">Enter arriving Date:</label>
+        <input type="date" id="arrivingDate" name="arrivingDate" required autocomplete="arrivingDate">
+        <label for="leavingDate">Enter leaving Date:</label>
+        <input type="date" id="leavingDate" name="leavingDate" required autocomplete="leavingDate">
+        <button>Confirm</button>
+    </form>
+
+    <p class="title1"> Monet Garden Hotel </p>
+    <img class="hotel" src="amsterdam1.jpg">
+    <div class="monet">
+        <button id="Monet Garden Hotel"> Reserve </button>
+    </div>
+    <p class="title2"> Holiday inn </p>
+    <img class="hotel" src="amsterdam2.jpg">
+    <div class="holiday">
+        <button id="holiday"> Reserve </button>
+    </div>
+    <p class="title3"> Hotel CC </p>
+    <img class="hotel" src="amsterdam3.jpg">
+    <div class="cc">
+        <button id="cc"> Reserve </button>
+    </div>
+    <script src = "app_index_search_hotels.js"></script>
+</body>
+
+</html>
